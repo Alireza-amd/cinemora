@@ -16,7 +16,7 @@ export function PageHeader({
       <div className="flex items-center justify-between gap-2">
         <h1
           className={cn(
-            "text-amber-500 font-bold text-3xl sm:text-5xl",
+            "font-bold text-3xl sm:text-5xl",
             subtitle ? "mb-4" : "mb-8",
           )}
         >
@@ -28,7 +28,7 @@ export function PageHeader({
           </div>
         )}
       </div>
-      {subtitle && <p className="text-amber-900 mb-8 text-xl">{subtitle}</p>}
+      {subtitle && <p className="mb-8 text-xl">{subtitle}</p>}
     </>
   );
 }

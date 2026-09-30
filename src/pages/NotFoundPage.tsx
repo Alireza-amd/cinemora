@@ -8,7 +8,7 @@ export function NotFoundPage() {
       <PageHeader subtitle="The page you tried to access could not be found">
         404 - Not Found
       </PageHeader>
-      <Button asChild>
+      <Button asChild className="p-8 text-2xl" variant="outline">
         <Link to="/">Take Me Home</Link>
       </Button>
     </div>
