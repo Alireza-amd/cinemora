@@ -21,8 +21,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useState } from "react";
 import { Link, NavLink } from "react-router";
+import { useTheme } from "@/context/theme/useTheme";
 
 const navItems = [
   { Icon: HouseIcon, to: "/", title: "Home" },
@@ -115,17 +115,16 @@ function UserProfile() {
 }
 
 function ToggleDarkModeButton() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const { toggleTheme } = useTheme();
 
   return (
-    <div onClick={() => setIsDarkMode((c) => !c)} className="cursor-pointer">
+    <div onClick={toggleTheme} className="cursor-pointer">
       <div className="flex text-primary-foreground items-center gap-2 rounded-full p-2 relative bg-primary -z-20 flex-nowrap">
         <SunIcon className="w-4 h-4 z-10" />
         <MoonIcon className="w-4 h-4  z-10" />
         <div
           className={cn(
-            "h-8 w-8 rounded-full absolute left-0 bg-rose-500 transition-transform duration-300 -z-10",
-            isDarkMode ? "translate-x-6" : "translate-x-0",
+            "h-8 w-8 rounded-full absolute dark:translate-x-6 translate-x-0 left-0 bg-rose-500 transition-transform duration-300 -z-10",
           )}
         />
       </div>
