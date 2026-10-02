@@ -1,12 +1,12 @@
 import z from "zod";
 
-export const signInSchema = z.object({
+export const signInFormSchema = z.object({
   email: z.string().email(),
   password: z.string().min(1),
   rememberMe: z.boolean(),
 });
 
-export const signUpSchema = z
+export const signUpFormSchema = z
   .object({
     fullName: z.string().min(1),
     email: z.string().email(),
@@ -31,3 +31,8 @@ export const signUpSchema = z
     path: ["confirmPassword"],
     error: "Passwords do not match.",
   });
+
+export const userSchema = z.object({
+  id: z.string(),
+  email: z.string().email(),
+});

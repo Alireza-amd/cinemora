@@ -14,8 +14,8 @@ import {
   MailIcon,
 } from "lucide-react";
 import { Controller, useForm } from "react-hook-form";
-import type { SignInSchema } from "../constants/types";
-import { signInSchema } from "../constants/schema";
+import type { SignInFormSchema } from "../constants/types";
+import { signInFormSchema } from "../constants/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import {
@@ -25,25 +25,44 @@ import {
 } from "@/components/ui/input-group";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, Navigate } from "react-router";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useAuth } from "../hooks/useAuth";
+import { LoadingSpinner } from "@/components/LoadingSpinner";
 
 export function SignInPage() {
+  const { signIn, isLoadingUser, user } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
-  const form = useForm<SignInSchema>({
-    resolver: zodResolver(signInSchema),
+  const form = useForm<SignInFormSchema>({
+    resolver: zodResolver(signInFormSchema),
     defaultValues: { email: "", password: "", rememberMe: false },
   });
 
-  function onSubmit(formValues: SignInSchema) {
-    console.log(formValues);
-    form.reset();
+  function onSubmit(formValues: SignInFormSchema) {
+    signIn(formValues).catch((error) => {
+      form.setError("root", {
+        type: "server",
+        message:
+          error instanceof Error
+            ? error.message
+            : "Something went wrong. Please try again.",
+      });
+    });
   }
+
+  if (isLoadingUser) return <LoadingSpinner className="w-24 h-24 text-white" />;
+  if (user != null) return <Navigate to="/" />;
 
   return (
     <div className="w-sm sm:w-md md:w-lg max-w-xl py-2">
       <Card className="border-2 border-mauve-700">
         <CardHeader className="flex flex-col justify-center items-center">
+          {form.formState.errors.root && (
+            <FieldError
+              className="text-lg"
+              errors={[form.formState.errors.root]}
+            />
+          )}
           <ClapperboardIcon className="w-12 h-12 mb-4 text-rose-700 md:h-20 md:w-20" />
           <CardTitle className="text-2xl md:text-4xl font-bold">
             Welcome back
@@ -139,6 +158,7 @@ export function SignInPage() {
             </div>
 
             <Button
+              disabled={form.formState.isSubmitting}
               type="submit"
               className="relative p-6 cursor-pointer text-white bg-rose-700 rounded-sm"
             >

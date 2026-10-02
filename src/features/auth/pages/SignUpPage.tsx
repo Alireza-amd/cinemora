@@ -15,8 +15,8 @@ import {
   UserIcon,
 } from "lucide-react";
 import { Controller, useForm } from "react-hook-form";
-import type { SignUpSchema } from "../constants/types";
-import { signUpSchema } from "../constants/schema";
+import type { SignUpFormSchema } from "../constants/types";
+import { signUpFormSchema } from "../constants/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import {
@@ -26,14 +26,17 @@ import {
 } from "@/components/ui/input-group";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, Navigate } from "react-router";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useAuth } from "../hooks/useAuth";
+import { LoadingSpinner } from "@/components/LoadingSpinner";
 
 export function SignUpPage() {
+  const { signUp, isLoadingUser, user } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const form = useForm<SignUpSchema>({
-    resolver: zodResolver(signUpSchema),
+  const form = useForm<SignUpFormSchema>({
+    resolver: zodResolver(signUpFormSchema),
     defaultValues: {
       fullName: "",
       email: "",
@@ -43,15 +46,31 @@ export function SignUpPage() {
     },
   });
   const isTermsAgreed = form.watch("agreeTerm");
-  function onSubmit(formValues: SignUpSchema) {
-    console.log(formValues);
-    form.reset();
+  async function onSubmit(formValues: SignUpFormSchema) {
+    await signUp(formValues).catch((error) => {
+      form.setError("root", {
+        type: "server",
+        message:
+          error instanceof Error
+            ? error.message
+            : "Something went wrong. Please try again.",
+      });
+    });
   }
+  console.log(user);
 
+  if (isLoadingUser) return <LoadingSpinner className="w-24 h-24 text-white" />;
+  if (user != null) return <Navigate to="/" />;
   return (
     <div className="w-sm sm:w-md md:w-lg max-w-xl py-2">
       <Card className="border-2 border-mauve-700">
         <CardHeader className="flex flex-col justify-center items-center">
+          {form.formState.errors.root && (
+            <FieldError
+              className="text-lg"
+              errors={[form.formState.errors.root]}
+            />
+          )}
           <ClapperboardIcon className="w-12 h-12 mb-4 text-rose-700 md:h-20 md:w-20" />
           <CardTitle className="text-2xl md:text-4xl font-bold">
             Create Your Account
@@ -214,7 +233,7 @@ export function SignUpPage() {
 
             <Button
               type="submit"
-              disabled={!isTermsAgreed}
+              disabled={!isTermsAgreed || form.formState.isSubmitting}
               className="relative p-6 cursor-pointer text-white bg-rose-700 rounded-sm"
             >
               <span>Create Account</span>
