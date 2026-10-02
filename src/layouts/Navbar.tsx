@@ -38,7 +38,7 @@ export function Navbar() {
   return (
     <header className="px-4 flex justify-between gap-2 sticky top-0 left-0 z-50 dark:bg-black bg-rose-600 drop-shadow-md drop-shadow-slate-200">
       <Link to="/">
-        <img src="../asset/logo.png" className="h-20 w-auto select-none" />
+        <img src="/src/asset/logo.png" className="h-20 w-auto select-none" />
       </Link>
       <nav className="hidden md:flex gap-6">
         {navItems.map((navItem) => (

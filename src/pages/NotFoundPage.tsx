@@ -4,7 +4,7 @@ import { Link } from "react-router";
 
 export function NotFoundPage() {
   return (
-    <div className="flex flex-col items-center gap-4">
+    <div className="flex flex-col items-center gap-4 py-8">
       <PageHeader subtitle="The page you tried to access could not be found">
         404 - Not Found
       </PageHeader>

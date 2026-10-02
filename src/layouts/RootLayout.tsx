@@ -7,11 +7,9 @@ export function RootLayout() {
     <ThemeProvider>
       <div className="flex flex-col min-h-screen">
         <Navbar />
-        <div className="my-4 container mx-auto grid grid-cols-1">
-          <div>
-            <Outlet />
-          </div>
-        </div>
+        <main className="flex-1">
+          <Outlet />
+        </main>
       </div>
       <ScrollRestoration />
     </ThemeProvider>
