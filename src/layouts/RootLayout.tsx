@@ -3,6 +3,7 @@ import { Navbar } from "./Navbar";
 import { ThemeProvider } from "@/context/theme/ThemeProvider";
 import { Toaster } from "@/components/ui/sonner";
 import { AuthProvider } from "@/features/auth/context/AuthProvider";
+import { Footer } from "./Footer";
 
 export function RootLayout() {
   return (
@@ -13,6 +14,7 @@ export function RootLayout() {
           <main className="flex-1">
             <Outlet />
           </main>
+          <Footer />
         </div>
         <ScrollRestoration />
         <Toaster />
