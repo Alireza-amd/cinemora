@@ -57,7 +57,6 @@ export function SignUpPage() {
       });
     });
   }
-  console.log(user);
 
   if (isLoadingUser) return <LoadingSpinner className="w-24 h-24 text-white" />;
   if (user != null) return <Navigate to="/" />;
