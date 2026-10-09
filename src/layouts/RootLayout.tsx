@@ -11,7 +11,7 @@ export function RootLayout() {
       <ThemeProvider>
         <div className="flex flex-col min-h-screen">
           <Navbar />
-          <main className="flex-1">
+          <main className="flex-1 container mx-auto px-6">
             <Outlet />
           </main>
           <Footer />
