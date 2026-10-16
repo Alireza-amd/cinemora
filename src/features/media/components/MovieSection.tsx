@@ -65,7 +65,9 @@ export function MovieSection({ title, to, MoviesPromise }: MovieSectionProps) {
           <Suspense
             fallback={
               <SkeletonArray length={8}>
-                <MediaCardSkeleton />
+                <CarouselItem className="w-full md:basis-1/2 lg:basis-1/3">
+                  <MediaCardSkeleton />
+                </CarouselItem>
               </SkeletonArray>
             }
           >

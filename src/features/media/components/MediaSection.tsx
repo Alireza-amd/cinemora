@@ -65,7 +65,9 @@ export function MediaSection({ title, to, mediasPromise }: MediaSectionProps) {
           <Suspense
             fallback={
               <SkeletonArray length={8}>
-                <MediaCardSkeleton />
+                <CarouselItem className="w-full md:basis-1/2 lg:basis-1/3">
+                  <MediaCardSkeleton />
+                </CarouselItem>
               </SkeletonArray>
             }
           >

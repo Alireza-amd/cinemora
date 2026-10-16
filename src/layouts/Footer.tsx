@@ -57,7 +57,7 @@ export function Footer() {
           </Button>
         </div>
       </div>
-      <p className="text-center text-sm dark:text-muted-foreground text-white mt-2">
+      <p className="text-center text-sm dark:text-muted-foreground text-white mt-2 bg-rose-800 rounded-sm dark:bg-black">
         © 2026 Cinemora. All rights reserved.
       </p>
     </footer>

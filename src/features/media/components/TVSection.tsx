@@ -65,7 +65,9 @@ export function TVSection({ title, to, TVShowsPromise }: TVSectionProps) {
           <Suspense
             fallback={
               <SkeletonArray length={8}>
-                <MediaCardSkeleton />
+                <CarouselItem className="w-full md:basis-1/2 lg:basis-1/3">
+                  <MediaCardSkeleton />
+                </CarouselItem>
               </SkeletonArray>
             }
           >

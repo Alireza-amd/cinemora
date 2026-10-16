@@ -18,12 +18,20 @@ import {
   useFavoriteMediaStore,
 } from "../stores/useFavoriteMediaStore";
 import { toast } from "sonner";
+import { useGenres } from "../hooks/useGenres";
 
 type MediaCardProps = {
   showMediaType?: boolean;
 } & MediaSchema;
+
 export function MediaCard({ showMediaType = false, ...media }: MediaCardProps) {
-  const { id, media_type: mediaType, backdrop_path, vote_average } = media;
+  const {
+    id,
+    media_type: mediaType,
+    backdrop_path,
+    vote_average,
+    genre_ids,
+  } = media;
   const isMovie = mediaType === "movie";
   const title = isMovie ? media.title : media.name;
   const releaseDate = isMovie ? media.release_date : media.first_air_date;
@@ -31,6 +39,11 @@ export function MediaCard({ showMediaType = false, ...media }: MediaCardProps) {
     state.favoriteMedias.some(
       (current) => current.id === id && current.mediaType === mediaType,
     ),
+  );
+  const { tvGenres, movieGenres } = useGenres();
+  const mediaTypeGenres = isMovie ? movieGenres : tvGenres;
+  const mediaGenres = mediaTypeGenres.filter(({ id }) =>
+    genre_ids.includes(id),
   );
 
   return (
@@ -78,7 +91,21 @@ export function MediaCard({ showMediaType = false, ...media }: MediaCardProps) {
         <CardHeader className="absolute bottom-0 left-0 right-0 p-4">
           <CardTitle className="text-lg text-white">{title}</CardTitle>
           <CardDescription className="flex items-center justify-between">
-            <span>{formatDate(releaseDate, { year: "numeric" })}</span>
+            <div className="flex flex-wrap gap-1">
+              <span>
+                {releaseDate
+                  ? formatDate(releaseDate, { year: "numeric" })
+                  : "Release date unknown"}
+              </span>
+              {mediaGenres.map((genre) => (
+                <span
+                  key={genre.id}
+                  className="hover:border-rose-700 border-transparent border-b-2"
+                >
+                  {genre.name}
+                </span>
+              ))}
+            </div>
             <span className="flex gap-1 items-center">
               <StarIcon fill="currentColor" className="text-yellow-600" />
               <span className="text-white">{vote_average.toFixed(1)}</span>

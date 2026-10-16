@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import {
   HeroTrendMediaSlider,
   HeroTrendMediaSliderSkeleton,
@@ -11,7 +12,6 @@ import {
   getTrendMedias,
   getTrendMovies,
 } from "@/features/media/services/service";
-import { Suspense } from "react";
 import { Await, useLoaderData } from "react-router";
 
 export function HomePage() {
@@ -22,8 +22,9 @@ export function HomePage() {
     popularTvShowsPromise,
     topRatedMoviesPromise,
   } = useLoaderData<typeof loader>();
+
   return (
-    <div className="my-6">
+    <div>
       {
         <Suspense fallback={<HeroTrendMediaSliderSkeleton />}>
           <Await resolve={trendMediasPromise}>
@@ -68,7 +69,7 @@ function loader() {
     popularTvShowsPromise: getPopularTVShows(),
   };
 }
-export const HomePageRoute = {
+export const homePageRoute = {
   loader,
   element: <HomePage />,
 };

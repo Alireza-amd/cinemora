@@ -1,34 +1,27 @@
-import { cn } from "cn";
-import type { ReactNode } from "react";
-
 type PageHeaderProps = {
-  children: ReactNode;
-  subtitle?: string;
-  buttonSection?: ReactNode;
+  children: React.ReactNode;
+  buttonSection?: React.ReactNode;
+  subtitle?: React.ReactNode;
 };
+
 export function PageHeader({
   children,
-  subtitle,
   buttonSection,
+  subtitle,
 }: PageHeaderProps) {
   return (
-    <>
-      <div className="flex items-center justify-between gap-2">
-        <h1
-          className={cn(
-            "font-bold text-3xl sm:text-5xl",
-            subtitle ? "mb-4" : "mb-8",
-          )}
-        >
-          {children}
-        </h1>
-        {buttonSection && (
-          <div className="flex items-center justify-center gap-2">
-            {buttonSection}
+    <div className="flex items-center gap-4 mb-8">
+      <h1
+        className={`text-2xl md:text-3xl lg:text-4xl gap-8 font-bold ${subtitle ? "mb-4" : "mb-8"}`}
+      >
+        {children}
+        {subtitle && (
+          <div className="text-sm md:text-lg lg:text-xl  font-normal text-muted-foreground">
+            {subtitle}
           </div>
         )}
-      </div>
-      {subtitle && <p className="mb-8 text-xl">{subtitle}</p>}
-    </>
+      </h1>
+      {buttonSection && <div className="text-2xl grow">{buttonSection}</div>}
+    </div>
   );
 }
