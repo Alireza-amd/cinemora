@@ -26,13 +26,12 @@ import {
 } from "@/components/ui/input-group";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { Link, Navigate } from "react-router";
+import { Link } from "react-router";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useAuth } from "../hooks/useAuth";
-import { LoadingSpinner } from "@/components/LoadingSpinner";
 
 export function SignUpPage() {
-  const { signUp, isLoadingUser, user } = useAuth();
+  const { signUp } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const form = useForm<SignUpFormSchema>({
@@ -58,8 +57,6 @@ export function SignUpPage() {
     });
   }
 
-  if (isLoadingUser) return <LoadingSpinner className="w-24 h-24 text-white" />;
-  if (user != null) return <Navigate to="/" />;
   return (
     <div className="w-sm sm:w-md md:w-lg max-w-xl py-2">
       <Card className="border-2 border-mauve-700">

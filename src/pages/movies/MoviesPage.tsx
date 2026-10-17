@@ -12,10 +12,16 @@ import { MediasFilterForm } from "@/features/media/components/MediaFilterForm";
 import { Search } from "lucide-react";
 
 import { Suspense } from "react";
-import { Await, useLoaderData, type LoaderFunctionArgs } from "react-router";
+import {
+  Await,
+  useLoaderData,
+  useSearchParams,
+  type LoaderFunctionArgs,
+} from "react-router";
 
 export function MoviesPage() {
   const { moviesPromise } = useLoaderData<typeof loader>();
+  const [searchParams] = useSearchParams();
 
   return (
     <>
@@ -33,7 +39,7 @@ export function MoviesPage() {
         Movies
       </PageHeader>
       <MediasFilterForm mediaType="movie" />
-      <Suspense fallback={<MediaGridSkeleton />}>
+      <Suspense fallback={<MediaGridSkeleton />} key={searchParams.toString()}>
         <Await resolve={moviesPromise}>
           {(movies) => (
             <>

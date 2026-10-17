@@ -8,6 +8,9 @@ import { SignInPage } from "./features/auth/pages/SignInPage";
 import { SignUpPage } from "./features/auth/pages/SignUpPage";
 import { moviesPageRoute } from "./pages/movies/MoviesPage";
 import { tvShowsPageRoute } from "./pages/tvShows/TVShowsPage";
+import { searchPageRoute } from "./pages/search/SearchPage";
+import { PrivateRoute } from "./components/PrivateRoute";
+import { FavoitesPage } from "./pages/favorites/FavoritePage";
 
 export const router = createBrowserRouter([
   {
@@ -32,6 +35,15 @@ export const router = createBrowserRouter([
           {
             path: "tv-shows",
             children: [{ index: true, ...tvShowsPageRoute }, { path: ":id" }],
+          },
+          { path: "search", ...searchPageRoute },
+          {
+            path: "favorites",
+            element: (
+              <PrivateRoute>
+                <FavoitesPage />
+              </PrivateRoute>
+            ),
           },
           { path: "*", element: <NotFoundPage /> },
         ],

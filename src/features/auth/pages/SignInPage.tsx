@@ -25,13 +25,12 @@ import {
 } from "@/components/ui/input-group";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { Link, Navigate } from "react-router";
+import { Link } from "react-router";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useAuth } from "../hooks/useAuth";
-import { LoadingSpinner } from "@/components/LoadingSpinner";
 
 export function SignInPage() {
-  const { signIn, isLoadingUser, user } = useAuth();
+  const { signIn } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const form = useForm<SignInFormSchema>({
     resolver: zodResolver(signInFormSchema),
@@ -49,9 +48,6 @@ export function SignInPage() {
       });
     });
   }
-
-  if (isLoadingUser) return <LoadingSpinner className="w-24 h-24 text-white" />;
-  if (user != null) return <Navigate to="/" />;
 
   return (
     <div className="w-sm sm:w-md md:w-lg max-w-xl py-2">

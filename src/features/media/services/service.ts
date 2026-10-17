@@ -71,3 +71,42 @@ export function getDiscoverTVShows(params: Record<string, string>) {
       .parseAsync(res.data);
   });
 }
+export function getSearchMovies(params: Record<string, string>) {
+  return baseApi
+    .get("/search/movie", { params })
+    .then((res) =>
+      tmdbSchema.extend({ results: z.array(movieSchema) }).parseAsync(res.data),
+    );
+}
+export function getSearchTVShows(params: Record<string, string>) {
+  return baseApi
+    .get("/search/tv", { params })
+    .then((res) =>
+      tmdbSchema
+        .extend({ results: z.array(tvShowSchema) })
+        .parseAsync(res.data),
+    );
+}
+export function getMovieById(id: number) {
+  return baseApi.get(`/movie/${id}`).then((res) => {
+    const movie = {
+      ...res.data,
+      genre_ids: res.data.genres.map(
+        (genre: { id: number; name: string }) => genre.id,
+      ),
+    };
+
+    return movieSchema.parseAsync(movie);
+  });
+}
+export function getTVShowsById(id: number) {
+  return baseApi.get(`/tv/${id}`).then((res) => {
+    const tvShow = {
+      ...res.data,
+      genre_ids: res.data.genres.map(
+        (genre: { id: number; name: string }) => genre.id,
+      ),
+    };
+    return tvShowSchema.parseAsync(tvShow);
+  });
+}
