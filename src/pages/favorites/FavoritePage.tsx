@@ -1,19 +1,18 @@
 import { PageHeader } from "@/components/PageHeader";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { MediaGridSkeleton } from "@/features/media/components/MediaGridSkeleton";
-import { MediaGrid, MoviesGrid } from "@/features/media/components/MoviesGrid";
-import { TVShowsGrid } from "@/features/media/components/TVShowsGrid";
-import {
-  getMovieById,
-  getTVShowsById,
-} from "@/features/media/services/service";
+import { MediaGrid, MoviesGrid } from "@/features/movie/components/MoviesGrid";
+import { TVShowsGrid } from "@/features/tv/components/TVShowsGrid";
+import {} from "@/features/media/services/service";
 import { useFavoriteMediaStore } from "@/features/media/stores/useFavoriteMediaStore";
 import { useQuery } from "@tanstack/react-query";
 import { HeartIcon } from "lucide-react";
+import { getMovieById } from "@/features/movie/services/service";
+import { getTVShowsById } from "@/features/tv/services/service";
 
 export function FavoitesPage() {
   return (
-    <>
+    <div className="container mx-auto px-6 my-6">
       <PageHeader subtitle="Your saved movies and TV shows.">
         <div className="flex gap-2">
           <HeartIcon className="w-8 h-8 text-rose-700" fill="currentColor" />
@@ -21,7 +20,7 @@ export function FavoitesPage() {
         </div>
       </PageHeader>
       <FavoriteMediaContent />
-    </>
+    </div>
   );
 }
 
@@ -37,15 +36,25 @@ function FavoriteMediaContent() {
       Promise.all(
         favoriteMedias.map((media) =>
           media.mediaType === "movie"
-            ? getMovieById(media.id)
-            : getTVShowsById(media.id),
+            ? getMovieById(media.id.toString())
+            : getTVShowsById(media.id.toString()),
         ),
       ),
   });
 
   const medias = allQuery.data ?? [];
-  const movies = medias.filter((m) => "release_date" in m);
-  const tvShows = medias.filter((m) => "first_air_date" in m);
+  const movies = medias
+    .filter((m) => "release_date" in m)
+    .map((movie) => ({
+      ...movie,
+      genre_ids: movie.genres.map((genre) => genre.id),
+    }));
+  const tvShows = medias
+    .filter((m) => "first_air_date" in m)
+    .map((tv) => ({
+      ...tv,
+      genre_ids: tv.genres.map((genre) => genre.id),
+    }));
 
   return (
     <Tabs defaultValue="all">

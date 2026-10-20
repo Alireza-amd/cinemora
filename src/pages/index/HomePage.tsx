@@ -3,16 +3,16 @@ import {
   HeroTrendMediaSlider,
   HeroTrendMediaSliderSkeleton,
 } from "@/features/home/components/HeroSlider";
-import { MovieSection } from "@/features/media/components/MovieSection";
-import { TVSection } from "@/features/media/components/TVSection";
+import { MovieSection } from "@/features/movie/components/MovieSection";
+import { TVSection } from "@/features/tv/components/TVSection";
+import { getTrendMedias } from "@/features/media/services/service";
+import { Await, useLoaderData } from "react-router";
 import {
   getPopularMovies,
-  getPopularTVShows,
   getTopRatedMovies,
-  getTrendMedias,
   getTrendMovies,
-} from "@/features/media/services/service";
-import { Await, useLoaderData } from "react-router";
+} from "@/features/movie/services/service";
+import { getPopularTVShows } from "@/features/tv/services/service";
 
 export function HomePage() {
   const {
@@ -24,7 +24,7 @@ export function HomePage() {
   } = useLoaderData<typeof loader>();
 
   return (
-    <div>
+    <div className="container mx-auto px-6 my-6">
       {
         <Suspense fallback={<HeroTrendMediaSliderSkeleton />}>
           <Await resolve={trendMediasPromise}>

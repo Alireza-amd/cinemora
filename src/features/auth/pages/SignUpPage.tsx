@@ -59,7 +59,7 @@ export function SignUpPage() {
 
   return (
     <div className="w-sm sm:w-md md:w-lg max-w-xl py-2">
-      <Card className="border-2 border-mauve-700">
+      <Card className="border-2 border-mauve-700 dark:backdrop-blur-xl dark:bg-white/10">
         <CardHeader className="flex flex-col justify-center items-center">
           {form.formState.errors.root && (
             <FieldError

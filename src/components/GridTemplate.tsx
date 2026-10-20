@@ -11,7 +11,7 @@ export function GridTemplate({
     <div
       {...props}
       className={cn(
-        "grid grid-cols-[repeat(auto-fill,minmax(400px,1fr))] gap-4",
+        "grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-4",
         className,
       )}
     >

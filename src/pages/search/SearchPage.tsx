@@ -6,12 +6,8 @@ import {
 } from "@/components/ui/input-group";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { MediaGridSkeleton } from "@/features/media/components/MediaGridSkeleton";
-import { MoviesGrid } from "@/features/media/components/MoviesGrid";
-import { TVShowsGrid } from "@/features/media/components/TVShowsGrid";
-import {
-  getSearchMovies,
-  getSearchTVShows,
-} from "@/features/media/services/service";
+import { MoviesGrid } from "@/features/movie/components/MoviesGrid";
+import { TVShowsGrid } from "@/features/tv/components/TVShowsGrid";
 import { Search, XIcon } from "lucide-react";
 import { Suspense, useEffect, useState } from "react";
 import {
@@ -20,6 +16,8 @@ import {
   useSearchParams,
   type LoaderFunctionArgs,
 } from "react-router";
+import { getSearchMovies } from "@/features/movie/services/service";
+import { getSearchTVShows } from "@/features/tv/services/service";
 
 const QUERY_KEY = "query";
 
@@ -53,8 +51,8 @@ export function SearchPage() {
   }
 
   return (
-    <>
-      <div className="flex flex-col items-center gap-2 mb-8">
+    <div className="container mx-auto px-6 my-6">
+      <div className="flex flex-col items-center gap-2 mb-8 ">
         <h1 className="text-2xl md:text-3xl lg:text-4xl gap-8 font-bold">
           Search CINEMORA
         </h1>
@@ -143,7 +141,7 @@ export function SearchPage() {
           </Suspense>
         </TabsContent>
       </Tabs>
-    </>
+    </div>
   );
 }
 

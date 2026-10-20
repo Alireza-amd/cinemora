@@ -11,6 +11,8 @@ import { tvShowsPageRoute } from "./pages/tvShows/TVShowsPage";
 import { searchPageRoute } from "./pages/search/SearchPage";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { FavoitesPage } from "./pages/favorites/FavoritePage";
+import { movieDetailsPageRoute } from "./pages/movies/MovieDetailsPage";
+import { tvShowDetailsPageRoute } from "./pages/tvShows/TVShowsDetailPage";
 
 export const router = createBrowserRouter([
   {
@@ -30,11 +32,17 @@ export const router = createBrowserRouter([
           },
           {
             path: "movies",
-            children: [{ index: true, ...moviesPageRoute }, { path: ":id" }],
+            children: [
+              { index: true, ...moviesPageRoute },
+              { path: ":id", ...movieDetailsPageRoute },
+            ],
           },
           {
-            path: "tv-shows",
-            children: [{ index: true, ...tvShowsPageRoute }, { path: ":id" }],
+            path: "tv",
+            children: [
+              { index: true, ...tvShowsPageRoute },
+              { path: ":id", ...tvShowDetailsPageRoute },
+            ],
           },
           { path: "search", ...searchPageRoute },
           {

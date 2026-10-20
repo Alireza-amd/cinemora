@@ -6,8 +6,7 @@ import {
   InputGroupInput,
 } from "@/components/ui/input-group";
 import { MediaGridSkeleton } from "@/features/media/components/MediaGridSkeleton";
-import { TVShowsGrid } from "@/features/media/components/TVShowsGrid";
-import { getDiscoverTVShows } from "@/features/media/services/service";
+import { TVShowsGrid } from "@/features/tv/components/TVShowsGrid";
 import { MediasFilterForm } from "@/features/media/components/MediaFilterForm";
 import { Search } from "lucide-react";
 
@@ -18,13 +17,14 @@ import {
   useSearchParams,
   type LoaderFunctionArgs,
 } from "react-router";
+import { getDiscoverTVShows } from "@/features/tv/services/service";
 
 export function TVShowsPage() {
   const { tvShowsPromise } = useLoaderData<typeof loader>();
   const [searchParams] = useSearchParams();
 
   return (
-    <>
+    <div className="container mx-auto px-6 my-6">
       <PageHeader
         subtitle="Explore popular and highly rated series."
         buttonSection={
@@ -52,7 +52,7 @@ export function TVShowsPage() {
           )}
         </Await>
       </Suspense>
-    </>
+    </div>
   );
 }
 

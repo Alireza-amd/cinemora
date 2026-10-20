@@ -6,8 +6,7 @@ import {
   InputGroupInput,
 } from "@/components/ui/input-group";
 import { MediaGridSkeleton } from "@/features/media/components/MediaGridSkeleton";
-import { MoviesGrid } from "@/features/media/components/MoviesGrid";
-import { getDiscoverMovies } from "@/features/media/services/service";
+import { MoviesGrid } from "@/features/movie/components/MoviesGrid";
 import { MediasFilterForm } from "@/features/media/components/MediaFilterForm";
 import { Search } from "lucide-react";
 
@@ -18,13 +17,14 @@ import {
   useSearchParams,
   type LoaderFunctionArgs,
 } from "react-router";
+import { getDiscoverMovies } from "@/features/movie/services/service";
 
 export function MoviesPage() {
   const { moviesPromise } = useLoaderData<typeof loader>();
   const [searchParams] = useSearchParams();
 
   return (
-    <>
+    <div className="container mx-auto px-6 my-6">
       <PageHeader
         subtitle="Discover movies with watching."
         buttonSection={
@@ -52,7 +52,7 @@ export function MoviesPage() {
           )}
         </Await>
       </Suspense>
-    </>
+    </div>
   );
 }
 

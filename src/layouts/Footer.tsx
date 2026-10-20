@@ -11,8 +11,8 @@ import logo from "@/asset/logo.png";
 
 export function Footer() {
   return (
-    <footer className="px-2 py-1 border-t-2 border-slate-500 text-white bg-rose-700 dark:bg-black ">
-      <div className="flex items-center justify-between gap-2 flex-wrap">
+    <footer className="border-t-2 border-slate-500 text-white bg-rose-700 dark:bg-black ">
+      <div className="mx-auto flex w-full flex-wrap items-center justify-between gap-4 px-4 ">
         <div className="flex flex-col items-start">
           <Link to="/">
             <img src={logo} className="h-15 select-none" />
@@ -57,7 +57,7 @@ export function Footer() {
           </Button>
         </div>
       </div>
-      <p className="text-center text-sm dark:text-muted-foreground text-white mt-2 bg-rose-800 rounded-sm dark:bg-black">
+      <p className="text-center text-sm py-2 dark:text-muted-foreground text-white mt-2 bg-rose-800 rounded-sm dark:bg-black">
         © 2026 Cinemora. All rights reserved.
       </p>
     </footer>

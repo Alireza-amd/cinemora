@@ -32,7 +32,7 @@ import logo from "@/asset/logo.png";
 const navItems = [
   { Icon: HouseIcon, to: "/", title: "Home" },
   { Icon: ClapperboardIcon, to: "/movies", title: "Movies" },
-  { Icon: TvIcon, to: "/tv-shows", title: "Tv Shows" },
+  { Icon: TvIcon, to: "/tv", title: "Tv Shows" },
   { Icon: DramaIcon, to: "/genres", title: "Genres" },
   { Icon: SearchIcon, to: "/search", title: "Search" },
   { Icon: HeartIcon, to: "/favorites", title: "Favorites" },
@@ -41,7 +41,7 @@ const navItems = [
 export function Navbar() {
   const { user } = useAuth();
   return (
-    <header className="px-4 flex justify-between gap-2 sticky top-0 left-0 z-50 dark:bg-black bg-rose-600 drop-shadow-md drop-shadow-slate-200">
+    <header className="px-4 flex justify-between gap-2 sticky top-0 left-0 z-50 dark:bg-black/90 bg-rose-600/90 drop-shadow-md drop-shadow-slate-200">
       <Link to="/">
         <img src={logo} className="h-20 w-auto select-none" />
       </Link>

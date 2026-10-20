@@ -6,12 +6,6 @@ import { MultiSelectFormField } from "@/components/MultiSelectFormField";
 import { useGenres } from "@/features/media/hooks/useGenres";
 import { SelectFormField } from "@/components/SelectFormField";
 import { Button } from "@/components/ui/button";
-import {
-  MoviesFilterKey,
-  TVShowsFilterKey,
-  type MediaFilterSchema,
-} from "@/features/media/constants/types";
-import { mediaFilterSchema } from "@/features/media/constants/schema";
 import { sortOptions } from "@/features/media/constants/data";
 import { useSearchParams } from "react-router";
 import {
@@ -19,6 +13,10 @@ import {
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group";
+import { MoviesFilterKey } from "@/features/movie/constants/types";
+import { TVShowsFilterKey } from "@/features/tv/constants/types";
+import type { MediaFilterSchema } from "../constants/types";
+import { mediaFilterSchema } from "../constants/schema";
 
 export function MediasFilterForm({ mediaType }: { mediaType: "movie" | "tv" }) {
   const [searchParams, setSearchParams] = useSearchParams();
