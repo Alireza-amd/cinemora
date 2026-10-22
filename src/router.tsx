@@ -13,6 +13,7 @@ import { PrivateRoute } from "./components/PrivateRoute";
 import { FavoitesPage } from "./pages/favorites/FavoritePage";
 import { movieDetailsPageRoute } from "./pages/movies/MovieDetailsPage";
 import { tvShowDetailsPageRoute } from "./pages/tvShows/TVShowsDetailPage";
+import { ExploreGenresPage } from "./pages/genres/ExploreGenres";
 
 export const router = createBrowserRouter([
   {
@@ -52,6 +53,10 @@ export const router = createBrowserRouter([
                 <FavoitesPage />
               </PrivateRoute>
             ),
+          },
+          {
+            path: "genres",
+            element: <ExploreGenresPage />,
           },
           { path: "*", element: <NotFoundPage /> },
         ],

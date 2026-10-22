@@ -192,7 +192,9 @@ function CrewsModal({ CrewsPromise }: CrewsModalProps) {
             >
               <Await resolve={CrewsPromise}>
                 {(crews) =>
-                  crews.map((crew) => <CrewCard key={crew.id} crew={crew} />)
+                  crews.map((crew) => (
+                    <CrewCard key={`${crew.id}-${crew.job}`} crew={crew} />
+                  ))
                 }
               </Await>
             </Suspense>

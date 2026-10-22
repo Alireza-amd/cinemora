@@ -99,7 +99,10 @@ function MovieDetailsPage() {
 
                   <div className="flex flex-wrap justify-center gap-2 md:justify-start">
                     {movie.genres.map((genre) => (
-                      <Link key={genre.id} to={`/genres/${genre.id}`}>
+                      <Link
+                        key={genre.id}
+                        to={`/movies?with_genres=${genre.id}`}
+                      >
                         <Badge
                           variant="outline"
                           className="border-white/30 text-white transition-colors hover:border-rose-500 hover:bg-rose-700"
@@ -154,15 +157,11 @@ function MovieDetailsPage() {
                 )}
               </Await>
             </Suspense>
-
-            {/* CastSection handles its own loading skeleton */}
             <CastSection
               title="Casts"
               castPromise={castPromise}
               key={`${id}-cast`}
             />
-
-            {/* CrewSection handles its own loading skeleton */}
             <CrewSection
               title="Crews"
               crewPromise={crewPromise}
@@ -221,8 +220,6 @@ function MovieDetailsPage() {
             </Await>
           </Suspense>
         </div>
-
-        {/* MovieSection handles its own loading skeleton */}
         <MovieSection
           key={id}
           MoviesPromise={similarMoviesPromise}

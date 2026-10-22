@@ -114,7 +114,7 @@ function TVShowDetailsPage() {
 
                   <div className="flex flex-wrap justify-center gap-2 md:justify-start">
                     {tvShow.genres.map((genre) => (
-                      <Link key={genre.id} to={`/genres/${genre.id}`}>
+                      <Link key={genre.id} to={`/tv?with_genres=${genre.id}`}>
                         <Badge
                           variant="outline"
                           className="border-white/30 text-white transition-colors hover:border-rose-500 hover:bg-rose-700"

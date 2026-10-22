@@ -191,7 +191,12 @@ function CastModal({ CastPromise }: CastModalProps) {
             >
               <Await resolve={CastPromise}>
                 {(casts) =>
-                  casts.map((cast) => <CastCard key={cast.id} cast={cast} />)
+                  casts.map((cast) => (
+                    <CastCard
+                      key={`${cast.id}-${cast.character}`}
+                      cast={cast}
+                    />
+                  ))
                 }
               </Await>
             </Suspense>

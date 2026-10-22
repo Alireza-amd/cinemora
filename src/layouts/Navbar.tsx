@@ -168,23 +168,15 @@ type NavItemProps = {
   showActivePath?: boolean;
   className?: string;
 };
-function NavItem({
-  to,
-  Icon,
-  title,
-  showActivePath = false,
-  className = "text-white",
-}: NavItemProps) {
+function NavItem({ to, Icon, title, className = "text-white" }: NavItemProps) {
   return (
     <NavLink
       to={to}
-      end
       className={({ isActive }) =>
         cn(
           "inline-flex h-full items-center gap-1",
           className,
           isActive &&
-            showActivePath &&
             "border-white dark:text-rose-700 dark:border-rose-700 border-b-6",
         )
       }
