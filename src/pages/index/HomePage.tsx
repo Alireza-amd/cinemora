@@ -36,22 +36,22 @@ export function HomePage() {
       }
       <div className="grid grid-cols-1 my-6 gap-4">
         <MovieSection
-          to="/"
+          to="/movie/trend"
           title="trending now"
           MoviesPromise={trendMoviesPromise}
         />
         <MovieSection
-          to="/"
+          to="/movie/popular"
           title="popular movies"
           MoviesPromise={popularMoviesPromise}
         />
         <MovieSection
-          to="/"
+          to="/movie/top-rated"
           title="top rated movies"
           MoviesPromise={topRatedMoviesPromise}
         />
         <TVSection
-          to="/"
+          to="/tv/popular"
           title="popular TV shows"
           TVShowsPromise={popularTvShowsPromise}
         />

@@ -31,7 +31,7 @@ import logo from "@/asset/logo.png";
 
 const navItems = [
   { Icon: HouseIcon, to: "/", title: "Home" },
-  { Icon: ClapperboardIcon, to: "/movies", title: "Movies" },
+  { Icon: ClapperboardIcon, to: "/movie", title: "Movies" },
   { Icon: TvIcon, to: "/tv", title: "Tv Shows" },
   { Icon: DramaIcon, to: "/genres", title: "Genres" },
   { Icon: SearchIcon, to: "/search", title: "Search" },

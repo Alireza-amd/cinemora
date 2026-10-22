@@ -11,9 +11,15 @@ import { tvShowsPageRoute } from "./pages/tvShows/TVShowsPage";
 import { searchPageRoute } from "./pages/search/SearchPage";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { FavoitesPage } from "./pages/favorites/FavoritePage";
-import { movieDetailsPageRoute } from "./pages/movies/MovieDetailsPage";
-import { tvShowDetailsPageRoute } from "./pages/tvShows/TVShowsDetailPage";
+import { movieDetailsPageRoute } from "./pages/movies/id/MovieDetailsPage";
+import { tvShowDetailsPageRoute } from "./pages/tvShows/id/TVShowsDetailPage";
 import { ExploreGenresPage } from "./pages/genres/ExploreGenres";
+import { popularMoviesPageRoute } from "./pages/movies/popular/PopularMoviesPage";
+import { topRatedMoviesPageRoute } from "./pages/movies/topRated/TopRatedMoviesPage";
+import { trendMoviesPageRoute } from "./pages/movies/trend/TrendMoviesPage";
+import { popularTVShowsPageRoute } from "./pages/tvShows/popular/PopularTVShowsPage";
+import { similarMoviesPageRoute } from "./pages/movies/id/similar/SimilarMoviesPage";
+import { similarTVShowsPageRoute } from "./pages/tvShows/id/similar/SimilarTVShowsPage";
 
 export const router = createBrowserRouter([
   {
@@ -32,17 +38,33 @@ export const router = createBrowserRouter([
             ],
           },
           {
-            path: "movies",
+            path: "movie",
             children: [
               { index: true, ...moviesPageRoute },
-              { path: ":id", ...movieDetailsPageRoute },
+              { path: "popular", ...popularMoviesPageRoute },
+              { path: "top-rated", ...topRatedMoviesPageRoute },
+              { path: "trend", ...trendMoviesPageRoute },
+              {
+                path: ":id",
+                children: [
+                  { index: true, ...movieDetailsPageRoute },
+                  { path: "similar", ...similarMoviesPageRoute },
+                ],
+              },
             ],
           },
           {
             path: "tv",
             children: [
               { index: true, ...tvShowsPageRoute },
-              { path: ":id", ...tvShowDetailsPageRoute },
+              { path: "popular", ...popularTVShowsPageRoute },
+              {
+                path: ":id",
+                children: [
+                  { index: true, ...tvShowDetailsPageRoute },
+                  { path: "similar", ...similarTVShowsPageRoute },
+                ],
+              },
             ],
           },
           { path: "search", ...searchPageRoute },

@@ -7,21 +7,22 @@ import {
   MediaFacts,
   MediaFactsSkeleton,
 } from "@/features/media/components/MediaFacts";
+import { MovieSection } from "@/features/movie/components/MovieSection";
 import {
   ProductionInfo,
   ProductionInfoSkeleton,
 } from "@/features/media/components/ProductionInfo";
-import { SeasonSection } from "@/features/tv/components/SeasonSection";
-import { TVSection } from "@/features/tv/components/TVSection";
-import { getTVShowCredits } from "@/features/media/services/service";
+import { getMovieCredits } from "@/features/media/services/service";
 import { getImageURL } from "@/services/baseImageURL";
-import { formatDate, formatPlural } from "@/utils/formatter";
+import { formatCurreny, formatDate, formatRuntime } from "@/utils/formatter";
 import {
   CalendarIcon,
+  ChartSplineIcon,
+  CircleDollarSign,
+  ClockIcon,
   GlobeIcon,
   NotepadTextIcon,
   StarIcon,
-  VideotapeIcon,
 } from "lucide-react";
 import { Suspense } from "react";
 import {
@@ -32,35 +33,30 @@ import {
   type LoaderFunctionArgs,
 } from "react-router";
 import {
-  getSimilarTVShows,
-  getTVShowsById,
-} from "@/features/tv/services/service";
+  getMovieById,
+  getSimilarMovies,
+} from "@/features/movie/services/service";
 
-function TVShowDetailsPage() {
+function MovieDetailsPage() {
   const { id } = useParams();
 
-  const {
-    tvShowPromise,
-    similarTVShowsPromise,
-    castPromise,
-    crewPromise,
-    seasonsPromise,
-  } = useLoaderData<typeof loader>();
+  const { moviePromise, similarMoviesPromise, castPromise, crewPromise } =
+    useLoaderData<typeof loader>();
 
-  if (tvShowPromise == null || similarTVShowsPromise == null) {
+  if (moviePromise == null || similarMoviesPromise == null) {
     return null;
   }
 
   return (
     <>
-      <Suspense fallback={<TVShowHeroSkeleton />} key={id}>
-        <Await resolve={tvShowPromise}>
-          {(tvShow) => (
+      <Suspense fallback={<MovieHeroSkeleton />} key={id}>
+        <Await resolve={moviePromise}>
+          {(movie) => (
             <div className="relative isolate overflow-hidden bg-background">
               <div
                 className="absolute inset-0 -z-20 bg-cover bg-center"
                 style={{
-                  backgroundImage: `url(${getImageURL(tvShow.backdrop_path)})`,
+                  backgroundImage: `url(${getImageURL(movie.backdrop_path)})`,
                 }}
               />
 
@@ -69,14 +65,14 @@ function TVShowDetailsPage() {
               <div className="mx-auto flex min-h-125 max-w-7xl flex-col items-center gap-8 px-6 py-10 text-white md:min-h-137.5 md:flex-row md:items-center md:gap-10 lg:gap-16 lg:px-10">
                 <div className="relative w-2/3 max-w-70 shrink-0 md:w-1/3 lg:w-1/4">
                   <img
-                    src={getImageURL(tvShow.poster_path)}
-                    alt={`${tvShow.name} poster`}
+                    src={getImageURL(movie.poster_path)}
+                    alt={`${movie.title} poster`}
                     className="aspect-2/3 w-full rounded-lg border border-white/20 object-cover shadow-2xl shadow-black/50"
                   />
 
                   <FavoriteButton
-                    id={tvShow.id}
-                    title={tvShow.name}
+                    id={movie.id}
+                    title={movie.title}
                     mediaType="movie"
                     className="absolute right-3 top-3"
                   />
@@ -84,37 +80,29 @@ function TVShowDetailsPage() {
 
                 <div className="flex min-w-0 flex-1 flex-col gap-5">
                   <h1 className="text-center text-3xl font-bold leading-tight sm:text-4xl md:text-left lg:text-5xl">
-                    {tvShow.name}
+                    {movie.title}
                   </h1>
 
                   <div className="flex flex-wrap items-center justify-center gap-3 text-sm text-white/80 md:justify-start">
-                    {tvShow.first_air_date && (
+                    {movie.release_date && (
                       <span>
-                        {formatDate(tvShow.first_air_date, {
+                        {formatDate(movie.release_date, {
                           year: "numeric",
                         })}
                       </span>
                     )}
 
-                    <span>
-                      {formatPlural(tvShow.number_of_seasons, {
-                        singular: "Season",
-                        plural: "Seasons",
-                      })}
-                    </span>
-                    <span>
-                      {formatPlural(tvShow.number_of_episodes, {
-                        singular: "Episode",
-                        plural: "Episodes",
-                      })}
-                    </span>
+                    {movie.release_date && <span aria-hidden="true">•</span>}
 
-                    <span className="text-green-700">{tvShow.status}</span>
+                    <span>{formatRuntime(movie.runtime)}</span>
                   </div>
 
                   <div className="flex flex-wrap justify-center gap-2 md:justify-start">
-                    {tvShow.genres.map((genre) => (
-                      <Link key={genre.id} to={`/tv?with_genres=${genre.id}`}>
+                    {movie.genres.map((genre) => (
+                      <Link
+                        key={genre.id}
+                        to={`/movie?with_genres=${genre.id}`}
+                      >
                         <Badge
                           variant="outline"
                           className="border-white/30 text-white transition-colors hover:border-rose-500 hover:bg-rose-700"
@@ -133,19 +121,19 @@ function TVShowDetailsPage() {
                       />
 
                       <span className="text-2xl font-bold">
-                        {tvShow.vote_average.toFixed(1)}
+                        {movie.vote_average.toFixed(1)}
                       </span>
 
                       <span className="text-sm text-white/70">/ 10</span>
                     </div>
 
                     <span className="text-sm text-white/70">
-                      {tvShow.vote_count.toLocaleString()} votes
+                      {movie.vote_count.toLocaleString()} votes
                     </span>
                   </div>
 
                   <p className="max-w-3xl text-center leading-7 text-white/85 md:text-left">
-                    {tvShow.overview}
+                    {movie.overview}
                   </p>
                 </div>
               </div>
@@ -160,29 +148,20 @@ function TVShowDetailsPage() {
           <div className="space-y-6 lg:col-span-2">
             {/* Production Companies & Countries */}
             <Suspense fallback={<ProductionInfoSkeleton />} key={id}>
-              <Await resolve={tvShowPromise}>
-                {(tvShow) => (
+              <Await resolve={moviePromise}>
+                {(movie) => (
                   <ProductionInfo
-                    productionCompanies={tvShow.production_companies}
-                    productionCountries={tvShow.production_countries}
+                    productionCompanies={movie.production_companies}
+                    productionCountries={movie.production_countries}
                   />
                 )}
               </Await>
             </Suspense>
-            <SeasonSection
-              seasonsPromise={seasonsPromise}
-              title="Seasons"
-              to="seasons"
-              key={`${id}-seasons`}
-            />
-            {/* CastSection handles its own loading skeleton */}
             <CastSection
               title="Casts"
               castPromise={castPromise}
               key={`${id}-cast`}
             />
-
-            {/* CrewSection handles its own loading skeleton */}
             <CrewSection
               title="Crews"
               crewPromise={crewPromise}
@@ -192,21 +171,21 @@ function TVShowDetailsPage() {
 
           {/* Movie Facts */}
           <Suspense fallback={<MediaFactsSkeleton />} key={id}>
-            <Await resolve={tvShowPromise}>
-              {(tvShow) => (
-                <MediaFacts mediaType="tv">
+            <Await resolve={moviePromise}>
+              {(movie) => (
+                <MediaFacts mediaType="movie">
                   <MediaFacts.Item
                     icon={NotepadTextIcon}
                     label="Status"
-                    value={tvShow.status}
+                    value={movie.status}
                   />
 
                   <MediaFacts.Item
                     icon={CalendarIcon}
-                    label="First Air Date"
+                    label="Release Date"
                     value={
-                      tvShow.first_air_date
-                        ? formatDate(tvShow.first_air_date, {
+                      movie.release_date
+                        ? formatDate(movie.release_date, {
                             dateStyle: "medium",
                           })
                         : "_"
@@ -214,44 +193,38 @@ function TVShowDetailsPage() {
                   />
 
                   <MediaFacts.Item
-                    icon={CalendarIcon}
-                    label="Last Air Date"
-                    value={
-                      tvShow.last_air_date
-                        ? formatDate(tvShow.last_air_date, {
-                            dateStyle: "medium",
-                          })
-                        : "_"
-                    }
-                  />
-                  <MediaFacts.Item
-                    icon={VideotapeIcon}
-                    label="Number Of Seasons"
-                    value={`${tvShow.number_of_seasons}`}
+                    icon={ClockIcon}
+                    label="Runtime"
+                    value={formatRuntime(movie.runtime)}
                   />
 
-                  <MediaFacts.Item
-                    icon={VideotapeIcon}
-                    label="Number Of Episodes"
-                    value={`${tvShow.number_of_episodes}`}
-                  />
                   <MediaFacts.Item
                     icon={GlobeIcon}
                     label="Original Language"
-                    value={tvShow.original_language}
+                    value={movie.original_language}
+                  />
+
+                  <MediaFacts.Item
+                    icon={CircleDollarSign}
+                    label="Budget"
+                    value={formatCurreny(movie.budget)}
+                  />
+
+                  <MediaFacts.Item
+                    icon={ChartSplineIcon}
+                    label="Revenue"
+                    value={formatCurreny(movie.revenue)}
                   />
                 </MediaFacts>
               )}
             </Await>
           </Suspense>
         </div>
-
-        {/* MovieSection handles its own loading skeleton */}
-        <TVSection
+        <MovieSection
           key={id}
-          TVShowsPromise={similarTVShowsPromise}
+          MoviesPromise={similarMoviesPromise}
           title="Similar Movies"
-          to="similar-movies"
+          to="similar"
         />
       </div>
     </>
@@ -263,32 +236,30 @@ function loader({ params }: LoaderFunctionArgs) {
 
   if (id == null) {
     return {
-      tvShowPromise: null,
-      tvShowCreditsPromise: null,
+      moviePromise: null,
+      movieCreditsPromise: null,
       castPromise: null,
       crewPromise: null,
-      similarTVShowsPromise: null,
+      similarMoviesPromise: null,
     };
   }
 
-  const tvShowCreditsPromise = getTVShowCredits(id);
-  const tvShowPromise = getTVShowsById(id);
+  const movieCreditsPromise = getMovieCredits(id);
 
   return {
-    tvShowPromise,
-    seasonsPromise: tvShowPromise.then((res) => res.seasons),
-    castPromise: tvShowCreditsPromise.then((res) => res.cast),
-    crewPromise: tvShowCreditsPromise.then((res) => res.crew),
-    similarTVShowsPromise: getSimilarTVShows(id),
+    moviePromise: getMovieById(id),
+    castPromise: movieCreditsPromise.then((res) => res.cast),
+    crewPromise: movieCreditsPromise.then((res) => res.crew),
+    similarMoviesPromise: getSimilarMovies(id),
   };
 }
 
-export const tvShowDetailsPageRoute = {
+export const movieDetailsPageRoute = {
   loader,
-  element: <TVShowDetailsPage />,
+  element: <MovieDetailsPage />,
 };
 
-function TVShowHeroSkeleton() {
+function MovieHeroSkeleton() {
   return (
     <div className="bg-background">
       <div className="mx-auto flex min-h-125 max-w-7xl animate-pulse flex-col items-center gap-8 px-6 py-10 md:min-h-137.5 md:flex-row md:gap-10 lg:gap-16 lg:px-10">

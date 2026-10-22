@@ -3,11 +3,13 @@ import z from "zod";
 import { tvShowDetailsSchema, tvShowSchema } from "../constants/schema";
 import { tmdbSchema } from "@/constants/schema";
 
-export function getPopularTVShows() {
+export function getPopularTVShows(params?: Record<string, string>) {
   return baseApi
-    .get("/tv/popular")
+    .get("/tv/popular", { params })
     .then((resolve) =>
-      z.object({ results: z.array(tvShowSchema) }).parseAsync(resolve.data),
+      tmdbSchema
+        .extend({ results: z.array(tvShowSchema) })
+        .parseAsync(resolve.data),
     );
 }
 export function getTopRatedTVShows() {
@@ -42,10 +44,12 @@ export function getTVShowsById(id: string) {
     .get(`/tv/${id}`)
     .then((res) => tvShowDetailsSchema.parseAsync(res.data));
 }
-export function getSimilarTVShows(id: string) {
+export function getSimilarTVShows(id: string, params?: Record<string, string>) {
   return baseApi
-    .get(`/tv/${id}/similar`)
+    .get(`/tv/${id}/similar`, { params })
     .then((res) =>
-      z.object({ results: z.array(tvShowSchema) }).parseAsync(res.data),
+      tmdbSchema
+        .extend({ results: z.array(tvShowSchema) })
+        .parseAsync(res.data),
     );
 }

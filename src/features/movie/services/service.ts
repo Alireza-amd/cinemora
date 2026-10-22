@@ -3,25 +3,25 @@ import z from "zod";
 import { movieDetailsSchema, movieSchema } from "../constants/schema";
 import { tmdbSchema } from "@/constants/schema";
 
-export function getTrendMovies() {
+export function getTrendMovies(params?: Record<string, string>) {
   return baseApi
-    .get("/trending/movie/week")
-    .then((resolve) =>
-      z.object({ results: z.array(movieSchema) }).parseAsync(resolve.data),
+    .get("/trending/movie/week", { params })
+    .then((res) =>
+      tmdbSchema.extend({ results: z.array(movieSchema) }).parseAsync(res.data),
     );
 }
-export function getPopularMovies() {
+export function getPopularMovies(params?: Record<string, string>) {
   return baseApi
-    .get("/movie/popular")
-    .then((resolve) =>
-      z.object({ results: z.array(movieSchema) }).parseAsync(resolve.data),
+    .get("/movie/popular", { params })
+    .then((res) =>
+      tmdbSchema.extend({ results: z.array(movieSchema) }).parseAsync(res.data),
     );
 }
-export function getTopRatedMovies() {
+export function getTopRatedMovies(params?: Record<string, string>) {
   return baseApi
-    .get("/movie/top_rated")
-    .then((resolve) =>
-      z.object({ results: z.array(movieSchema) }).parseAsync(resolve.data),
+    .get("/movie/top_rated", { params })
+    .then((res) =>
+      tmdbSchema.extend({ results: z.array(movieSchema) }).parseAsync(res.data),
     );
 }
 export function getDiscoverMovies(params: Record<string, string>) {
@@ -44,10 +44,10 @@ export function getMovieById(id: string) {
     .get(`/movie/${id}`)
     .then((res) => movieDetailsSchema.parseAsync(res.data));
 }
-export function getSimilarMovies(id: string) {
+export function getSimilarMovies(id: string, params?: Record<string, string>) {
   return baseApi
-    .get(`/movie/${id}/similar`)
+    .get(`/movie/${id}/similar`, { params })
     .then((res) =>
-      z.object({ results: z.array(movieSchema) }).parseAsync(res.data),
+      tmdbSchema.extend({ results: z.array(movieSchema) }).parseAsync(res.data),
     );
 }

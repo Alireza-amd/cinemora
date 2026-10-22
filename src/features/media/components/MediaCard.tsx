@@ -57,7 +57,7 @@ export function MediaCard({ showMediaType = false, ...media }: MediaCardProps) {
         <FavoriteButton id={id} mediaType={mediaType} title={title} />
       </div>
       <div className="absolute inset-0 bg-linear-to-t from-black  via-black/80 via-20% to-black/0" />
-      <Link to={`/${isMovie ? "movies" : "tv"}/${id}`}>
+      <Link to={`/${mediaType}/${id}`}>
         <CardHeader className="absolute bottom-0 left-0 right-0 p-4">
           <CardTitle className="text-lg text-white ">{title}</CardTitle>
           <CardDescription className="flex items-center justify-between ">

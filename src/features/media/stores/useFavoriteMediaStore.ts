@@ -12,7 +12,7 @@ type FavoriteMediaState = {
 
 export const useFavoriteMediaStore = create<FavoriteMediaState>()(
   persist(
-    (set, get) => ({
+    (): FavoriteMediaState => ({
       favoriteMedias: [],
     }),
     { name: LOCAL_STORAGE_FAVORITE_MEDIA_KEY },

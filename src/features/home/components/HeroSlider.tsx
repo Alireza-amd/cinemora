@@ -46,7 +46,7 @@ export function HeroTrendMediaSlider({ trendMedias }: HeroSliderProps) {
           return (
             <CarouselItem
               key={trendMedia.id}
-              className="lg:basis-1/3 md:basis-1/2 cursor-pointer"
+              className="lg:basis-1/3 md:basis-1/2"
             >
               <Card
                 style={{
@@ -59,40 +59,40 @@ export function HeroTrendMediaSlider({ trendMedias }: HeroSliderProps) {
                     : "md:scale-90 lg:scale-60 opacity-60",
                 )}
               >
-                <Link to={`/${trendMedia.media_type}/${trendMedia.id}`}>
-                  <CardContent className="absolute inset-0 flex flex-col items-start justify-start bg-linear-to-t from-black/90 via-black/20 to-transparent p-6 select-none">
-                    <span className="text-rose-700 text-sm flex">
-                      <FlameIcon className="w-4 h-4" />
-                      TRNENDING NOW
-                    </span>
-                    <div className="mt-auto">
+                <CardContent className="absolute inset-0 flex flex-col items-start justify-start bg-linear-to-t from-black/90 via-black/20 to-transparent p-6 select-none">
+                  <span className="text-rose-700 text-sm flex">
+                    <FlameIcon className="w-4 h-4" />
+                    TRNENDING NOW
+                  </span>
+                  <div className="mt-auto">
+                    <Link to={`/${trendMedia.media_type}/${trendMedia.id}`}>
                       <h1 className="text-white font-bold text-2xl text-wrap flex items-center gap-2">
                         {isTVShow ? trendMedia.name : trendMedia.title}
                         <Badge className="bg-rose-700 text-white">
                           {isTVShow ? "TV SHOW" : "MOVIE"}
                         </Badge>
                       </h1>
-                      <div className="flex flex-col">
-                        <div className="flex gap-1 items-center">
-                          <StarIcon
-                            fill="currentColor"
-                            className="w-4 h-4 text-yellow-500"
-                          />
-                          <span className="text-yellow-500 font-bold scale-115">
-                            {trendMedia.vote_average.toFixed(1)}
-                          </span>
-                          <span className="text-white">/10</span>
-                        </div>
-                        <Badge
-                          variant="secondary"
-                          className="bg-yellow-500 text-black font-bold"
-                        >
-                          IMDB
-                        </Badge>
+                    </Link>
+                    <div className="flex flex-col">
+                      <div className="flex gap-1 items-center">
+                        <StarIcon
+                          fill="currentColor"
+                          className="w-4 h-4 text-yellow-500"
+                        />
+                        <span className="text-yellow-500 font-bold scale-115">
+                          {trendMedia.vote_average.toFixed(1)}
+                        </span>
+                        <span className="text-white">/10</span>
                       </div>
+                      <Badge
+                        variant="secondary"
+                        className="bg-yellow-500 text-black font-bold"
+                      >
+                        IMDB
+                      </Badge>
                     </div>
-                  </CardContent>
-                </Link>
+                  </div>
+                </CardContent>
               </Card>
             </CarouselItem>
           );

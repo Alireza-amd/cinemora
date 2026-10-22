@@ -1,0 +1,146 @@
+{
+  "movie": {
+    "28": {
+      "image": "https://image.tmdb.org/t/p/w1280/h8gHn0OzBoaefsYseUByqsmEDMY.jpg",
+      "description": "High-stakes missions, intense fights, and explosive adventures."
+    },
+    "12": {
+      "image": "https://image.tmdb.org/t/p/w1280/ouB7hwclG7QI3INoYJHaZL4vOaa.jpg",
+      "description": "Epic journeys, unexplored worlds, and extraordinary discoveries."
+    },
+    "16": {
+      "image": "https://image.tmdb.org/t/p/w1280/8YFL5QQVPy3AgrEQxNYVSgiPEbe.jpg",
+      "description": "Imaginative worlds and unforgettable animated stories."
+    },
+    "35": {
+      "image": "https://image.tmdb.org/t/p/w1280/bT3IpP7OopgiVuy6HCPOWLuaFAd.jpg",
+      "description": "Funny moments, clever jokes, and feel-good entertainment."
+    },
+    "80": {
+      "image": "https://image.tmdb.org/t/p/w1280/6ELCZlTA5lGUops70hKdB83WJxH.jpg",
+      "description": "Criminal investigations, dangerous secrets, and complex cases."
+    },
+    "99": {
+      "image": "https://image.tmdb.org/t/p/w1280/7IiTTgloJzvGI1TAYymCfbfl3vT.jpg",
+      "description": "Real people, true events, and stories worth discovering."
+    },
+    "18": {
+      "image": "https://image.tmdb.org/t/p/w1280/3bhkrj58Vtu7enYsRolD1fZdja1.jpg",
+      "description": "Powerful performances and stories that explore human emotions."
+    },
+    "10751": {
+      "image": "https://image.tmdb.org/t/p/w1280/2CAL2433ZeIihfX1Hb2139CX0pW.jpg",
+      "description": "Heartwarming adventures and entertainment for all ages."
+    },
+    "14": {
+      "image": "https://image.tmdb.org/t/p/w1280/5hoS3nEkGGXUfmnu39YW5J7e6x5.jpg",
+      "description": "Magical realms, mythical creatures, and impossible wonders."
+    },
+    "36": {
+      "image": "https://image.tmdb.org/t/p/w1280/4Y1WNkd88JXmGfhtWR7dmDAo1T2.jpg",
+      "description": "Remarkable figures and events that shaped our past."
+    },
+    "27": {
+      "image": "https://image.tmdb.org/t/p/w1280/8Gxv8gSFCU0XGDykEGv7zR1n2ua.jpg",
+      "description": "Unsettling mysteries and suspense-filled encounters."
+    },
+    "10402": {
+      "image": "https://image.tmdb.org/t/p/w1280/2uNW4WbgBXL25BAbXGLnLqX71Sw.jpg",
+      "description": "Rhythm, unforgettable performances, and stories through music."
+    },
+    "9648": {
+      "image": "https://image.tmdb.org/t/p/w1280/1XDDXPXGiI8id7MrUxK36ke7gkX.jpg",
+      "description": "Hidden clues, unexpected twists, and puzzles to solve."
+    },
+    "10749": {
+      "image": "https://image.tmdb.org/t/p/w1280/6oom5QYQ2yQTMJIbnvbkBL9cHo6.jpg",
+      "description": "Love, connection, and relationships that change everything."
+    },
+    "878": {
+      "image": "https://image.tmdb.org/t/p/w1280/7RyHsO4yDXtBv1zUU3mTpHeQ0d5.jpg",
+      "description": "Futuristic technology, distant galaxies, and scientific wonders."
+    },
+    "10770": {
+      "image": "https://image.tmdb.org/t/p/w1280/9O1Iy9od7tTjQ3Q2xZ7qY6j4b8.jpg",
+      "description": "Made-for-TV stories filled with memorable moments."
+    },
+    "53": {
+      "image": "https://image.tmdb.org/t/p/w1280/5gJkVIVU7FDp7AfRAbPSvvdbre2.jpg",
+      "description": "Edge-of-your-seat suspense and unexpected revelations."
+    },
+    "10752": {
+      "image": "https://image.tmdb.org/t/p/w1280/2S2XcXy8V4Q5J6g7H8i9J0K1L2M.jpg",
+      "description": "Stories of conflict, courage, sacrifice, and survival."
+    },
+    "37": {
+      "image": "https://image.tmdb.org/t/p/w1280/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg",
+      "description": "Wild frontiers, rugged landscapes, and classic Western tales."
+    }
+  },
+  "tv": {
+    "10759": {
+      "image": "https://image.tmdb.org/t/p/w1280/9faGSFi5jam6pDWGNd0p8JcJgXQ.jpg",
+      "description": "Fast-paced adventures, daring missions, and heroic journeys."
+    },
+    "16": {
+      "image": "https://image.tmdb.org/t/p/w1280/4N55tgxDW0RRATyrZHbx0q9HUKv.jpg",
+      "description": "Animated worlds filled with creativity and memorable characters."
+    },
+    "35": {
+      "image": "https://image.tmdb.org/t/p/w1280/3r4LYFuXrg3G8fepysr4xSLWnQL.jpg",
+      "description": "Comedic characters and entertaining everyday chaos."
+    },
+    "80": {
+      "image": "https://image.tmdb.org/t/p/w1280/6LWy0jvMpmjoS9fojNgHIKoWL05.jpg",
+      "description": "Crime stories, investigations, and complicated mysteries."
+    },
+    "99": {
+      "image": "https://image.tmdb.org/t/p/w1280/7D7lxVg6zF8u0H0V1X2Y3Z4a5b6.jpg",
+      "description": "Documentary series exploring real people and real events."
+    },
+    "18": {
+      "image": "https://image.tmdb.org/t/p/w1280/7WUHnWGx5OO145IRxPDUkQSh4C7.jpg",
+      "description": "Character-driven stories packed with emotion and conflict."
+    },
+    "10751": {
+      "image": "https://image.tmdb.org/t/p/w1280/8o9j2rV5Q7cN1xK3pL4mT6bD0aF.jpg",
+      "description": "Family-friendly stories for watching together."
+    },
+    "10762": {
+      "image": "https://image.tmdb.org/t/p/w1280/6xKCYgH16UuwEGAyroLU6p8HLIn.jpg",
+      "description": "Fun adventures and engaging stories for younger audiences."
+    },
+    "9648": {
+      "image": "https://image.tmdb.org/t/p/w1280/1XS1oqL89opfnbLl8WnZY1O1uJx.jpg",
+      "description": "Intriguing secrets, strange events, and unsolved mysteries."
+    },
+    "10763": {
+      "image": "https://image.tmdb.org/t/p/w1280/4EYPN5mVIhKLfxGruy7Dy41dTVn.jpg",
+      "description": "News, current affairs, and stories from around the world."
+    },
+    "10764": {
+      "image": "https://image.tmdb.org/t/p/w1280/5q5K9b9n4s5j6h7k8l9m0n1o2p3q.jpg",
+      "description": "Unscripted moments, real-life challenges, and competition."
+    },
+    "10765": {
+      "image": "https://image.tmdb.org/t/p/w1280/6LMSW3s5y9pX4r8t2q1w7v0b3c5d.jpg",
+      "description": "Science fiction, fantasy worlds, and extraordinary possibilities."
+    },
+    "10766": {
+      "image": "https://image.tmdb.org/t/p/w1280/3Z4Y5X6W7V8U9T0S1R2Q3P4O5N6M.jpg",
+      "description": "Long-running stories about relationships and personal drama."
+    },
+    "10767": {
+      "image": "https://image.tmdb.org/t/p/w1280/2x7j9K4L5m6N8p0Q1r3S4t6U7v8W.jpg",
+      "description": "Conversations, interviews, and entertaining studio moments."
+    },
+    "10768": {
+      "image": "https://image.tmdb.org/t/p/w1280/5X0W8J4P3Q7R2T6Y9U1V4A8B0C3D.jpg",
+      "description": "Political intrigue, historical conflicts, and power struggles."
+    },
+    "37": {
+      "image": "https://image.tmdb.org/t/p/w1280/4V2nTPfeB59TcqJcUfQ9ziTi7VN.jpg",
+      "description": "Frontier towns, rugged landscapes, and tales of the Old West."
+    }
+  }
+}
