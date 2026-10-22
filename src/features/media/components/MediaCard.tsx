@@ -50,18 +50,20 @@ export function MediaCard({ showMediaType = false, ...media }: MediaCardProps) {
       />
       <div className="flex items-center px-4">
         {showMediaType && (
-          <Badge className="bg-rose-700  text-white p-3 font-bold">
+          <Badge className="bg-rose-700 text-white p-3 text-xs sm:text-sm font-bold">
             {mediaType}
           </Badge>
         )}
         <FavoriteButton id={id} mediaType={mediaType} title={title} />
       </div>
-      <div className="absolute inset-0 bg-linear-to-t from-black  via-black/80 via-20% to-black/0" />
+      <div className="absolute inset-0 bg-linear-to-t from-black via-black/80 via-20% to-black/0" />
       <Link to={`/${mediaType}/${id}`}>
         <CardHeader className="absolute bottom-0 left-0 right-0 p-4">
-          <CardTitle className="text-lg text-white ">{title}</CardTitle>
-          <CardDescription className="flex items-center justify-between ">
-            <div className="flex flex-wrap gap-1">
+          <CardTitle className="text-base sm:text-lg lg:text-xl text-white">
+            {title}
+          </CardTitle>
+          <CardDescription className="flex items-center justify-between text-[10px] sm:text-xs lg:text-sm">
+            <div className="hidden lg:flex flex-wrap gap-1 line-clamp-1">
               <span>
                 {releaseDate
                   ? formatDate(releaseDate, { year: "numeric" })
@@ -77,7 +79,10 @@ export function MediaCard({ showMediaType = false, ...media }: MediaCardProps) {
               ))}
             </div>
             <span className="flex gap-1 items-center">
-              <StarIcon fill="currentColor" className="text-yellow-600" />
+              <StarIcon
+                fill="currentColor"
+                className="size-3 sm:size-4 text-yellow-600"
+              />
               <span className="text-white">{vote_average.toFixed(1)}</span>
             </span>
           </CardDescription>
@@ -97,11 +102,11 @@ export function MediaCardSkeleton({
       <Skeleton className="aspect-3/4 w-full bg-black/15" />
       <div className="flex items-center justify-between px-4 absolute left-0 right-0 top-4">
         {showMediaType && <Skeleton className="w-1/5 h-6" />}
-        <Skeleton className="w-8 h-8 " />
+        <Skeleton className="w-8 h-8" />
       </div>
-      <div className="absolute inset-0 bg-linear-to-t from-black  via-black/80 via-20% to-black/0" />
+      <div className="absolute inset-0 bg-linear-to-t from-black via-black/80 via-20% to-black/0" />
       <CardHeader className="absolute bottom-0 left-0 right-0 p-4">
-        <CardTitle className="text-lg ">
+        <CardTitle className="text-base sm:text-lg lg:text-xl">
           <Skeleton className="w-1/3 h-6" />
         </CardTitle>
         <CardDescription className="flex items-center justify-between">

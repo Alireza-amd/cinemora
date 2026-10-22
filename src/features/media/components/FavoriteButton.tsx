@@ -6,6 +6,7 @@ import {
 import { toast } from "sonner";
 import { HeartIcon } from "lucide-react";
 import { cn } from "cn";
+import { useAuth } from "@/features/auth/hooks/useAuth";
 
 export default function FavoriteButton({
   id,
@@ -18,11 +19,15 @@ export default function FavoriteButton({
   title: string;
   className?: string;
 }) {
+  const { user } = useAuth();
   const isMediaInFavorites = useFavoriteMediaStore((state) =>
     state.favoriteMedias.some(
       (current) => current.id === id && current.mediaType === mediaType,
     ),
   );
+
+  if (user == null) return;
+
   return (
     <button
       className={cn("flex cursor-pointer z-20 ml-auto", className)}

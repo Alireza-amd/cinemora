@@ -59,13 +59,13 @@ export function TVSection({ title, to, TVShowsPromise }: TVSectionProps) {
           align: "start",
           loop: false,
         }}
-        className="w-full px-12"
+        className="w-full sm:px-12"
       >
         <CarouselContent>
           <Suspense
             fallback={
               <SkeletonArray length={8}>
-                <CarouselItem className="w-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5">
+                <CarouselItem className="basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5">
                   <MediaCardSkeleton />
                 </CarouselItem>
               </SkeletonArray>
@@ -76,7 +76,7 @@ export function TVSection({ title, to, TVShowsPromise }: TVSectionProps) {
                 TVShows.results.map((show) => (
                   <CarouselItem
                     key={show.id}
-                    className="w-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5"
+                    className="basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5"
                   >
                     <MediaCard {...show} media_type="tv" />
                   </CarouselItem>
@@ -86,9 +86,11 @@ export function TVSection({ title, to, TVShowsPromise }: TVSectionProps) {
           </Suspense>
         </CarouselContent>
         {canScrollPrev && (
-          <CarouselPrevious className="left-0 cursor-pointer" />
+          <CarouselPrevious className="hidden sm:flex left-0 cursor-pointer" />
         )}
-        {canScrollNext && <CarouselNext className="right-0 cursor-pointer" />}
+        {canScrollNext && (
+          <CarouselNext className="hidden sm:flex right-0 cursor-pointer" />
+        )}
       </Carousel>
     </div>
   );

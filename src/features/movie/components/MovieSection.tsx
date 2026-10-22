@@ -60,13 +60,13 @@ export function MovieSection({ title, to, MoviesPromise }: MovieSectionProps) {
           align: "start",
           loop: false,
         }}
-        className="w-full px-12"
+        className="w-full sm:px-12"
       >
         <CarouselContent>
           <Suspense
             fallback={
               <SkeletonArray length={8}>
-                <CarouselItem className="w-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5">
+                <CarouselItem className="basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5">
                   <MediaCardSkeleton />
                 </CarouselItem>
               </SkeletonArray>
@@ -77,7 +77,7 @@ export function MovieSection({ title, to, MoviesPromise }: MovieSectionProps) {
                 movies.results.map((movie) => (
                   <CarouselItem
                     key={`${movie.id}-${id}`}
-                    className="w-full sm:basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5"
+                    className="basis-1/2 md:basis-1/3 lg:basis-1/4 xl:basis-1/5"
                   >
                     <MediaCard {...movie} media_type="movie" />
                   </CarouselItem>
@@ -87,9 +87,11 @@ export function MovieSection({ title, to, MoviesPromise }: MovieSectionProps) {
           </Suspense>
         </CarouselContent>
         {canScrollPrev && (
-          <CarouselPrevious className="left-0 cursor-pointer" />
+          <CarouselPrevious className="left-0 cursor-pointer hidden sm:flex" />
         )}
-        {canScrollNext && <CarouselNext className="right-0 cursor-pointer" />}
+        {canScrollNext && (
+          <CarouselNext className="right-0 cursor-pointer hidden sm:flex" />
+        )}
       </Carousel>
     </div>
   );

@@ -81,13 +81,13 @@ export function SeasonSection({ title, seasonsPromise }: CastSectionProps) {
           align: "start",
           loop: false,
         }}
-        className="relative w-full min-w-0 px-8"
+        className="relative w-full min-w-0 sm:px-8"
       >
         <CarouselContent className="-ml-4">
           <Suspense
             fallback={
               <SkeletonArray length={8}>
-                <CarouselItem className="pl-4 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4">
+                <CarouselItem className="pl-4 basis-1/2 lg:basis-1/3 xl:basis-1/4">
                   <SeasonCardSkeleton />
                 </CarouselItem>
               </SkeletonArray>
@@ -98,7 +98,7 @@ export function SeasonSection({ title, seasonsPromise }: CastSectionProps) {
                 seasons.map((season) => (
                   <CarouselItem
                     key={`${season.id}`}
-                    className="pl-4 sm:basis-1/2 lg:basis-1/3 xl:basis-1/4"
+                    className="pl-4 basis-1/2 lg:basis-1/3 xl:basis-1/4"
                   >
                     <SeasonCard season={season} />
                   </CarouselItem>
@@ -109,10 +109,12 @@ export function SeasonSection({ title, seasonsPromise }: CastSectionProps) {
         </CarouselContent>
 
         {canScrollPrev && (
-          <CarouselPrevious className="-left-3 cursor-pointer" />
+          <CarouselPrevious className="hidden sm:flex -left-3 cursor-pointer" />
         )}
 
-        {canScrollNext && <CarouselNext className="-right-3 cursor-pointer" />}
+        {canScrollNext && (
+          <CarouselNext className="hidden sm:flex -right-3 cursor-pointer" />
+        )}
       </Carousel>
     </section>
   );

@@ -28,7 +28,6 @@ import {
 import { getImageURL } from "@/services/baseImageURL";
 import { Skeleton } from "@/components/ui/skeleton";
 import { UserIcon } from "lucide-react";
-import { GridTemplate } from "@/components/GridTemplate";
 
 type CrewSectionProps = {
   title: string;
@@ -75,13 +74,13 @@ export function CrewSection({ title, crewPromise }: CrewSectionProps) {
           align: "start",
           loop: false,
         }}
-        className="relative w-full min-w-0 px-8"
+        className="relative w-full min-w-0 sm:px-8"
       >
         <CarouselContent className="-ml-4">
           <Suspense
             fallback={
               <SkeletonArray length={8}>
-                <CarouselItem className="basis-1/2 pl-4 sm:basis-1/3 lg:basis-1/4 xl:basis-1/5">
+                <CarouselItem className="basis-1/3 pl-4 sm:basis-1/4 lg:basis-1/5 xl:basis-1/6">
                   <CrewCardSkeleton />
                 </CarouselItem>
               </SkeletonArray>
@@ -92,7 +91,7 @@ export function CrewSection({ title, crewPromise }: CrewSectionProps) {
                 crews.map((crew) => (
                   <CarouselItem
                     key={`${crew.id}-${crew.job}`}
-                    className="basis-1/2 pl-4 sm:basis-1/3 lg:basis-1/4 xl:basis-1/5"
+                    className="basis-1/3 pl-4 sm:basis-1/4 lg:basis-1/5 xl:basis-1/6"
                   >
                     <CrewCard crew={crew} />
                   </CarouselItem>
@@ -103,10 +102,12 @@ export function CrewSection({ title, crewPromise }: CrewSectionProps) {
         </CarouselContent>
 
         {canScrollPrev && (
-          <CarouselPrevious className="-left-3 cursor-pointer" />
+          <CarouselPrevious className="hidden sm:flex -left-3 cursor-pointer" />
         )}
 
-        {canScrollNext && <CarouselNext className="-right-3 cursor-pointer" />}
+        {canScrollNext && (
+          <CarouselNext className="hidden sm:flex -right-3 cursor-pointer" />
+        )}
       </Carousel>
     </section>
   );
@@ -182,7 +183,7 @@ function CrewsModal({ CrewsPromise }: CrewsModalProps) {
         </DialogHeader>
 
         <div className="min-h-0 flex-1 overflow-y-auto pr-2">
-          <GridTemplate>
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] gap-5">
             <Suspense
               fallback={
                 <SkeletonArray length={9}>
@@ -198,7 +199,7 @@ function CrewsModal({ CrewsPromise }: CrewsModalProps) {
                 }
               </Await>
             </Suspense>
-          </GridTemplate>
+          </div>
         </div>
       </DialogContent>
     </Dialog>

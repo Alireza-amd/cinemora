@@ -26,7 +26,7 @@ import {
 import { Link, NavLink } from "react-router";
 import { useTheme } from "@/context/theme/useTheme";
 import { useAuth } from "@/features/auth/hooks/useAuth";
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 import logo from "@/asset/logo.png";
 
 const navItems = [
@@ -40,11 +40,14 @@ const navItems = [
 
 export function Navbar() {
   const { user } = useAuth();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   return (
     <header className="px-4 flex justify-between gap-2 sticky top-0 left-0 z-50 dark:bg-black/90 bg-rose-600/90 drop-shadow-md drop-shadow-slate-200">
       <Link to="/">
         <img src={logo} className="h-20 w-auto select-none" />
       </Link>
+
       <nav className="hidden lg:flex gap-6">
         {navItems.map((navItem) => (
           <NavItem
@@ -56,29 +59,34 @@ export function Navbar() {
           />
         ))}
       </nav>
+
       <div className="flex items-center gap-2">
-        <DropdownMenu>
+        <DropdownMenu open={isMenuOpen} onOpenChange={setIsMenuOpen}>
           <DropdownMenuTrigger asChild className="flex lg:hidden">
             <Button size="icon-lg" className="cursor-pointer">
               <MenuIcon className="w-4 h-4" />
             </Button>
           </DropdownMenuTrigger>
+
           <DropdownMenuContent align="end">
             <DropdownMenuGroup>
               {navItems.map((navItem) => (
-                <DropdownMenuItem key={navItem.to}>
+                <DropdownMenuItem key={navItem.to} asChild>
                   <NavItem
                     className="w-full text-black dark:text-white"
                     Icon={navItem.Icon}
                     to={navItem.to}
                     title={navItem.title}
+                    onNavigate={() => setIsMenuOpen(false)}
                   />
                 </DropdownMenuItem>
               ))}
             </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>
+
         <ToggleDarkModeButton />
+
         {user ? (
           <UserProfile />
         ) : (
@@ -86,10 +94,12 @@ export function Navbar() {
             <Button className="flex md:hidden" variant="secondary">
               <Link to="/sign-in">Login / Sign up</Link>
             </Button>
+
             <div className="hidden md:flex gap-1">
               <Button variant="secondary">
                 <Link to="/sign-in">Login</Link>
               </Button>
+
               <Button variant="secondary">
                 <Link to="/sign-up">Sign up</Link>
               </Button>
@@ -106,6 +116,7 @@ function UserProfile() {
   const [isLoading, startTransition] = useTransition();
 
   if (user == null) return;
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -116,6 +127,7 @@ function UserProfile() {
           <ChevronDown className="w-4 h-4" />
         </button>
       </DropdownMenuTrigger>
+
       <DropdownMenuContent className="w-64">
         <DropdownMenuGroup>
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
@@ -124,7 +136,9 @@ function UserProfile() {
           </DropdownMenuItem>
           <DropdownMenuItem>Billing</DropdownMenuItem>
         </DropdownMenuGroup>
+
         <DropdownMenuSeparator />
+
         <DropdownMenuGroup>
           <DropdownMenuItem
             disabled={isLoading}
@@ -150,7 +164,7 @@ function ToggleDarkModeButton() {
     <div onClick={toggleTheme} className="cursor-pointer">
       <Button className="flex text-primary-foreground items-center gap-2 rounded-full p-2 relative bg-primary -z-20 flex-nowrap">
         <SunIcon className="w-4 h-4 z-10" />
-        <MoonIcon className="w-4 h-4  z-10" />
+        <MoonIcon className="w-4 h-4 z-10" />
         <div
           className={cn(
             "h-8 w-8 rounded-full absolute dark:translate-x-6 translate-x-0 left-0 bg-rose-500 transition-transform duration-300 -z-10",
@@ -167,11 +181,20 @@ type NavItemProps = {
   Icon: LucideIcon;
   showActivePath?: boolean;
   className?: string;
+  onNavigate?: () => void;
 };
-function NavItem({ to, Icon, title, className = "text-white" }: NavItemProps) {
+
+function NavItem({
+  to,
+  Icon,
+  title,
+  className = "text-white",
+  onNavigate,
+}: NavItemProps) {
   return (
     <NavLink
       to={to}
+      onClick={onNavigate}
       className={({ isActive }) =>
         cn(
           "inline-flex h-full items-center gap-1",

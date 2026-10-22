@@ -28,7 +28,6 @@ import {
 import { getImageURL } from "@/services/baseImageURL";
 import { Skeleton } from "@/components/ui/skeleton";
 import { UserIcon } from "lucide-react";
-import { GridTemplate } from "@/components/GridTemplate";
 
 type CastSectionProps = {
   title: string;
@@ -75,13 +74,13 @@ export function CastSection({ title, castPromise }: CastSectionProps) {
           align: "start",
           loop: false,
         }}
-        className="relative w-full min-w-0 px-8"
+        className="relative w-full min-w-0 sm:px-8"
       >
         <CarouselContent className="-ml-4">
           <Suspense
             fallback={
               <SkeletonArray length={8}>
-                <CarouselItem className="basis-1/2 pl-4 sm:basis-1/3 lg:basis-1/4 xl:basis-1/5">
+                <CarouselItem className="basis-1/3 pl-4 sm:basis-1/4 lg:basis-1/5 xl:basis-1/6">
                   <CastCardSkeleton />
                 </CarouselItem>
               </SkeletonArray>
@@ -93,7 +92,7 @@ export function CastSection({ title, castPromise }: CastSectionProps) {
                 casts.map((cast) => (
                   <CarouselItem
                     key={`${cast.id}-${cast.character}`}
-                    className="basis-1/2 pl-4 sm:basis-1/3 lg:basis-1/4 xl:basis-1/5"
+                    className="basis-1/3 pl-4 sm:basis-1/4 lg:basis-1/5 xl:basis-1/6"
                   >
                     <CastCard cast={cast} />
                   </CarouselItem>
@@ -104,10 +103,12 @@ export function CastSection({ title, castPromise }: CastSectionProps) {
         </CarouselContent>
 
         {canScrollPrev && (
-          <CarouselPrevious className="-left-3 cursor-pointer" />
+          <CarouselPrevious className="hidden sm:flex -left-3 cursor-pointer" />
         )}
 
-        {canScrollNext && <CarouselNext className="-right-3 cursor-pointer" />}
+        {canScrollNext && (
+          <CarouselNext className="hidden sm:flex -right-3 cursor-pointer" />
+        )}
       </Carousel>
     </section>
   );
@@ -181,7 +182,7 @@ function CastModal({ CastPromise }: CastModalProps) {
         </DialogHeader>
 
         <div className="min-h-0 flex-1 overflow-y-auto pr-2">
-          <GridTemplate>
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(150px,1fr))] gap-5">
             <Suspense
               fallback={
                 <SkeletonArray length={9}>
@@ -200,7 +201,7 @@ function CastModal({ CastPromise }: CastModalProps) {
                 }
               </Await>
             </Suspense>
-          </GridTemplate>
+          </div>
         </div>
       </DialogContent>
     </Dialog>
