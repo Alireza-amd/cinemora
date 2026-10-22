@@ -7,9 +7,9 @@ import type {
   productionCompanySchema,
   productionCountrySchema,
 } from "./commonSchema";
-import type { mediaFilterSchema } from "./schema";
+import type { mediaFilterSchema, mediaSchema } from "./schema";
 
-export type MediaSchema = z.infer<typeof mediaFilterSchema>;
+export type MediaSchema = z.infer<typeof mediaSchema>;
 export type Genre = z.infer<typeof genreSchema>;
 export type MediaFilterSchema = z.infer<typeof mediaFilterSchema>;
 export type CastSchema = z.infer<typeof castSchema>;
