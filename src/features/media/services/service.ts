@@ -4,8 +4,28 @@ import z from "zod";
 import { genreSchema, mediaCreditSchema } from "../constants/commonSchema";
 
 export function getTrendMedias() {
-  return baseApi.get("/trending/all/day").then((resolve) => {
-    return z.object({ results: z.array(mediaSchema) }).parseAsync(resolve.data);
+  return baseApi.get("/trending/all/day").then((res) => {
+    const results = z
+      .object({
+        results: z.array(z.unknown()),
+      })
+      .parse(res.data).results;
+
+    const validMedias = results.filter(
+      (
+        media,
+      ): media is { media_type: "movie" | "tv" } & Record<string, unknown> =>
+        typeof media === "object" &&
+        media !== null &&
+        "media_type" in media &&
+        (media.media_type === "movie" || media.media_type === "tv"),
+    );
+
+    return z
+      .object({
+        results: z.array(mediaSchema),
+      })
+      .parseAsync({ results: validMedias });
   });
 }
 

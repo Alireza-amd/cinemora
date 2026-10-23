@@ -31,7 +31,6 @@ export function CustomPagination({ page, totalPages }: CustomPaginationProps) {
 
   const pages = new Set<number>([
     1,
-    totalPages,
     ...(page > 1 ? [page - 1] : []),
     page,
     ...(page < totalPages ? [page + 1] : []),
